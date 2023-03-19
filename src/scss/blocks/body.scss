@@ -5,13 +5,15 @@ body {
 }
 
 img{
-    width: 500px;
+    height: 400px;
+    width: auto;
+    margin: 0;
 }
 
 .photo-container{
-    position: relative;
-    width: 500px;
+    height: 400px;
     margin-top: 2rem;
+    position: relative;
 }
 
 .fav-button{
@@ -21,9 +23,19 @@ img{
     border-radius: 55px;
     font-family: sans-serif;
     text-transform: uppercase;
-    font-weight: 00;
     font-size: .7rem;
-    right: 1rem;
+    left: 1rem;
     bottom: 1rem;
     cursor: pointer;
+}
+
+.favorites{
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) ;
+    grid-template-rows: repeat(6, 1fr);
+
+    &__img{
+        height: auto;
+    }
 }

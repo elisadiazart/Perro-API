@@ -4,11 +4,13 @@ import '../scss/styles.scss';
 const selectElement = document.getElementById('select')
 const button = document.getElementById('button')
 const photoContainer = document.getElementById('photoContainer')
+const favoritesContainer = document.getElementById('favorites')
 
 let selectedOption = ''
 let imagesrc = ''
 const LS = localStorage
 let imageFavoritesArray = [];
+let favorites
 
 
 
@@ -60,15 +62,39 @@ const getLocalStorage = () => {
     }
 };
 
+
+const paintFavorites = () => {
+    if(favorites.length === 0)return
+    else{
+    getLocalStorage()
+    favoritesContainer.innerHTML = ''
+    const fragment = document.createDocumentFragment()
+    for (let index = 0; index <= favorites.length; index++) {
+        const newFavoriteImage = document.createElement('img')
+        console.log(favorites[index]);
+        newFavoriteImage.src = favorites[index]
+        newFavoriteImage.classList.add('favorites__img')
+        fragment.append(newFavoriteImage)
+    }
+    favoritesContainer.append(fragment)
+}
+}
+
+getLocalStorage()
+paintFavorites()
+
 selectElement.addEventListener('change', e => {
     if(e.target.selectedIndex === 0) return
     else{
-        selectedOption = [...e.target.selectedOptions][0].value;
-        console.log(selectedOption)}
+        selectedOption = [...e.target.selectedOptions][0].value;}
 })
 
 button.addEventListener('click', e => {
-    generatePhoto()
+    if (selectElement.value === 'breeds') return;
+    else {
+        generatePhoto()
+        paintFavorites()
+    }
 })
 
 
@@ -77,5 +103,9 @@ document.body.addEventListener('click', e => {
     else {
         imageFavoritesArray.push(imagesrc);
         updateLocalStorage()
+        updateLocalStorage()
+        getLocalStorage()
+        paintFavorites()
     }
 })
+
