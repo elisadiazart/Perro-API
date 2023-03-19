@@ -57,6 +57,7 @@ const getLocalStorage = () => {
     const localFavourites = LS.getItem('favorites');
     if (localFavourites) {
       favorites = JSON.parse(localFavourites);
+      imageFavoritesArray = favorites
     } else {
       localStorage.setItem('favorites', JSON.stringify([]));
     }
@@ -65,11 +66,10 @@ const getLocalStorage = () => {
 
 const paintFavorites = () => {
     if(favorites.length === 0)return
-    else{
     getLocalStorage()
     favoritesContainer.innerHTML = ''
     const fragment = document.createDocumentFragment()
-    for (let index = 0; index <= favorites.length; index++) {
+    for (let index = 0; index < favorites.length; index++) {
         const newFavoriteImage = document.createElement('img')
         console.log(favorites[index]);
         newFavoriteImage.src = favorites[index]
@@ -78,7 +78,7 @@ const paintFavorites = () => {
     }
     favoritesContainer.append(fragment)
 }
-}
+
 
 getLocalStorage()
 paintFavorites()
@@ -100,12 +100,10 @@ button.addEventListener('click', e => {
 
 document.body.addEventListener('click', e => {
     if(!e.target.classList.contains('fav-button')) return
-    else {
+    console.log(imageFavoritesArray);
         imageFavoritesArray.push(imagesrc);
-        updateLocalStorage()
         updateLocalStorage()
         getLocalStorage()
         paintFavorites()
-    }
 })
 
