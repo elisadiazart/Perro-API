@@ -9,17 +9,17 @@
     <title>Vite Template</title>
   </head>
   <body>
-    <form action="" class="form">
+    <form id="form" action="" class="form">
       <select name="breed" id="select">
         <option value="breeds">Breeds</option>
       </select>
+      <button id="button">Generate photo</button>
     </form>
-    <button id="button">Generate photo</button>
+    <h2 class="title">Generated photo</h2>
     <div id="photoContainer" class="photo-container"></div>
-    <div id="favorites" class="favorites">
-      <h2>Favorites</h2>
-    </div>
-    
+    <h2 class="title">Favorites</h2>
+    <div id="favorites" class="favorites"></div>
+
     <script type="module" src="./js/index.js"></script>
   </body>
 </html>

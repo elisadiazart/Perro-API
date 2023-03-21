@@ -5,6 +5,7 @@ const selectElement = document.getElementById('select')
 const button = document.getElementById('button')
 const photoContainer = document.getElementById('photoContainer')
 const favoritesContainer = document.getElementById('favorites')
+const form = document.getElementById('form')
 
 let selectedOption = ''
 let imagesrc = ''
@@ -41,6 +42,7 @@ const generatePhoto= async () =>  {
     photoContainer.innerHTML = ''
     const newPhoto = document.createElement('img')
     newPhoto.src = data.message
+    newPhoto.classList.add('generated-photo')
     imagesrc = data.message
     const favButton = document.createElement('div')
     favButton.classList.add('fav-button')
@@ -65,16 +67,21 @@ const getLocalStorage = () => {
 
 
 const paintFavorites = () => {
-    if(favorites.length === 0)return
+    if(favorites.length === 0) return
     getLocalStorage()
     favoritesContainer.innerHTML = ''
     const fragment = document.createDocumentFragment()
     for (let index = 0; index < favorites.length; index++) {
+        const favoriteImageContainer = document.createElement('div')
+        favoriteImageContainer.classList.add('favorite-image-container')
         const newFavoriteImage = document.createElement('img')
-        console.log(favorites[index]);
         newFavoriteImage.src = favorites[index]
         newFavoriteImage.classList.add('favorites__img')
-        fragment.append(newFavoriteImage)
+        const favButton = document.createElement('div')
+        favButton.classList.add('fav-button--favorites')
+        favButton.textContent = 'quitar'
+        favoriteImageContainer.append(newFavoriteImage, favButton)
+        fragment.append(favoriteImageContainer)
     }
     favoritesContainer.append(fragment)
 }
@@ -99,11 +106,28 @@ button.addEventListener('click', e => {
 
 
 document.body.addEventListener('click', e => {
-    if(!e.target.classList.contains('fav-button')) return
-    console.log(imageFavoritesArray);
+    if(e.target.classList.contains('fav-button')) {
         imageFavoritesArray.push(imagesrc);
         updateLocalStorage()
         getLocalStorage()
         paintFavorites()
+    }
+    if(e.target.classList.contains('fav-button--favorites')){
+        console.log(e.target.previousElementSibling.src);
+        const index = imageFavoritesArray.indexOf(e.target.previousElementSibling.src)
+        console.log(index);
+        imageFavoritesArray.splice(index)
+        console.log(imageFavoritesArray.length);
+        console.log(imageFavoritesArray);
+        updateLocalStorage()
+        getLocalStorage()
+        paintFavorites()
+
+    }
+    else return
 })
 
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+  });
