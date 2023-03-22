@@ -67,7 +67,6 @@ const getLocalStorage = () => {
 
 
 const paintFavorites = () => {
-    if(favorites.length === 0) return
     getLocalStorage()
     favoritesContainer.innerHTML = ''
     const fragment = document.createDocumentFragment()
@@ -116,15 +115,13 @@ document.body.addEventListener('click', e => {
         console.log(e.target.previousElementSibling.src);
         const index = imageFavoritesArray.indexOf(e.target.previousElementSibling.src)
         console.log(index);
-        imageFavoritesArray.splice(index)
+        imageFavoritesArray.splice(index,1)
         console.log(imageFavoritesArray.length);
         console.log(imageFavoritesArray);
         updateLocalStorage()
         getLocalStorage()
         paintFavorites()
-
     }
-    else return
 })
 
 
